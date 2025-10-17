@@ -216,7 +216,7 @@ export const useLatestCrypto = (limit = 50) => {
     } finally {
       setLoading(false);
     }
-  }, [limit]);
+  }, []);
 
   useEffect(() => {
     fetchLatestCrypto();

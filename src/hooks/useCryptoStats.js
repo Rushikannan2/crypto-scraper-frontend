@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { cryptoAPI } from '../services/cryptoApi';
+import cryptoApi from '../services/cryptoApi';
 
 /**
  * Custom hook for managing cryptocurrency statistics
@@ -17,7 +17,7 @@ export const useCryptoStats = () => {
     setError(null);
 
     try {
-      const response = await cryptoAPI.getStats();
+      const response = await cryptoApi.getCryptoStats();
       setStats(response.data.data);
       return { success: true, data: response.data.data };
     } catch (err) {
@@ -37,7 +37,7 @@ export const useCryptoStats = () => {
     setError(null);
 
     try {
-      const response = await cryptoAPI.triggerScraping();
+      const response = await cryptoApi.triggerScraping();
       
       // Refresh stats after scraping
       await fetchStats();

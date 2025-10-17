@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { cryptoAPI } from '../services/cryptoApi';
+import cryptoApi from '../services/cryptoApi';
 
 /**
  * Custom hook for managing cryptocurrency data and operations
@@ -35,7 +35,7 @@ export const useCrypto = (initialParams = {}) => {
     setError(null);
 
     try {
-      const response = await cryptoAPI.getCrypto(requestParams);
+      const response = await cryptoApi.getCrypto(requestParams);
       const { data, pagination: paginationData } = response.data;
 
       setCryptoData(data);
@@ -111,7 +111,7 @@ export const useCrypto = (initialParams = {}) => {
    */
   const deleteCrypto = useCallback(async (cryptoId) => {
     try {
-      await cryptoAPI.deleteCrypto(cryptoId);
+      await cryptoApi.deleteCrypto(cryptoId);
       
       // Remove from local state
       setCryptoData(prev => prev.filter(crypto => crypto._id !== cryptoId));
@@ -169,7 +169,7 @@ export const useTopCrypto = (limit = 10) => {
     setError(null);
 
     try {
-      const response = await cryptoAPI.getTopCrypto({ limit });
+      const response = await cryptoApi.getTopCrypto(limit);
       setCryptoData(response.data.data);
       return { success: true, data: response.data.data };
     } catch (err) {
@@ -206,7 +206,7 @@ export const useLatestCrypto = (limit = 50) => {
     setError(null);
 
     try {
-      const response = await cryptoAPI.getLatestCrypto({ limit });
+      const response = await cryptoApi.getLatestCrypto();
       setCryptoData(response.data.data);
       return { success: true, data: response.data.data };
     } catch (err) {
